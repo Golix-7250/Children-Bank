@@ -1,5 +1,5 @@
-from customtkinter import *
 import tkinter
+from customtkinter import * #pip install customtkinter
 from PIL import Image , ImageTk #pip install Pillow
 from tkcalendar import DateEntry #pip install tkcalendar
 from tkinter import messagebox as msg
@@ -7,16 +7,16 @@ from datetime import datetime as dt
 from random import randint as rint
 import os
 
-
 class server():
+
     def __init__(self):
         if( not os.path.exists("server")):
             os.mkdir("server")
         self.main_server = {}
-        self.new_user_details = []
+        self.new_user_details = ["","","","","","",[]]
         self.logged_account = "0"
         self.logged_user_details = ["Aditya Raj","13/12/12","1","7739652381","1111","5700",[]]
-        self.transfer_user_details = [] 
+        self.transfer_user_details = ["","","","","","",[]] 
 
     def add_new_user(self, name , dob , gender , pnum, pin ):
         self.new_user_details = ["","","","","","",[]]
@@ -28,8 +28,8 @@ class server():
         transaction_list = []
         self.new_user_details[6] =transaction_list
     
-
 class gui_pages:
+
     def __init__(self):
         self.main_frame = CTkFrame(root)
         self.login_frame = CTkFrame(root)
@@ -54,13 +54,16 @@ class gui_pages:
 
     # function for creating the main page----------------------------------------
     def create_mainpage(self):
-        self.main_frame = CTkFrame( root , width=799, height=533, corner_radius=5, bg_color="red" , fg_color="white" , border_width=2)
+
+        self.main_frame = CTkFrame( root , width=799, height=533, corner_radius=5, bg_color="white" , fg_color="white" , border_width=2)
+
         mainpage_image = CTkImage(dark_image= Image.open("images\mainpage.png") , size= (799 , 533))
         mainpage_lbl = CTkLabel(self.main_frame, image=mainpage_image , text="").pack()
 
         # adding text label on main page 
         label_list = ["Welcome to Lena Dena Bank.","your every transaction is" ,"special for us.", "Now make your banking", "experience seamless and","simply the best...."]
         y_pos = 200
+
         for i in label_list:
             CTkLabel( self.main_frame, text=i , font=("lucida" , 18), text_color= "#4B4B4B", fg_color="transparent" ).place( x = 35, y = y_pos)
             y_pos += 28
@@ -72,6 +75,7 @@ class gui_pages:
 
     # creating login page----------------------------------------------------------------
     def create_loginpage(self):
+
         def verify_log_details():
             ac = ac_num.get()
             pn = ac_pin.get()
@@ -101,12 +105,14 @@ class gui_pages:
         self.login_frame = CTkFrame( root , width=800, height=534, corner_radius=5, bg_color="white" , fg_color="white" , border_width=0)
 
         colorbox = CTkFrame(master= self.login_frame , width= 320 , height= 534, fg_color= "#766bff" , border_width=0 , corner_radius= 0).place(x = 0, y = 0)
+        
         mainlogo = CTkImage(dark_image= Image.open("images\mainlogo.png") , size= (320 , 180))
         mainlogo_lbl = CTkLabel(self.login_frame, image=mainlogo , text="").place(x=0,y=0)
 
         # adding label in login page
         label_list = ["Our services are fast and reliable","with a 24x7 customer support" ,"which helps you at any time you", "need.", " ","Toll Free Number :", "011255353, 21213214"]
         y_pos = 150
+
         for i in label_list:
             CTkLabel( self.login_frame, text=i , font=("lucida" , 15), text_color= "white", fg_color="#766bff" , bg_color= "#766bff").place( x = 35, y = y_pos)
             y_pos += 28
@@ -176,6 +182,7 @@ class gui_pages:
             if( len(sdate) > 2):
                self.fdate = f"{sdate[1]}-{sdate[0]}-{sdate[2]}"
             else: self.fdate = dob.get()
+
             date_label = CTkLabel(master=self.signin_frame , text_color="black", font=("Agency" , 18), text= self.fdate + "     ", width= 220, height= 42, fg_color="#E5E5E5" , corner_radius= 5).place(x = 31 , y = 271) 
 
         #creating variable
@@ -206,14 +213,12 @@ class gui_pages:
 
         CTkLabel( self.signin_frame, text="Date of Birth :" , font=("lucida" , 16, "bold"), text_color= "gray",).place( x = 30, y = 235)
         
-
         CTkLabel( self.signin_frame, text="Gender :" , font=("lucida" , 16, "bold"), text_color= "gray",).place( x = 30, y = 325)
 
         CTkLabel( self.signin_frame, text="Phone Number :" , font=("lucida" , 16, "bold"), text_color= "gray",).place( x = 30, y = 395)
 
         CTkEntry(master=self.signin_frame , width=250 , height= 45, fg_color="#E5E5E5" , corner_radius= 12, border_width=0, text_color="black", font=("Agency" , 18), textvariable = username).place(x = 30 , y = 180)
 
-            
         date_picker = DateEntry(self.signin_frame, selectmode ='day', font= ("lucida" , 25),fg_color = "gray", corner_radius = 5, text_color = "gray",textvariable = dob).place(x = 30 , y = 270)
 
         date_label = CTkLabel(master=self.signin_frame , text_color="gray", font=("Agency" , 16), text="DD/MM/YYYY", width= 220, height= 42, fg_color="#E5E5E5" , corner_radius= 5).place(x = 31 , y = 271)
@@ -247,6 +252,7 @@ class gui_pages:
 
     # creating signup verification page--------------------------------------------------------------
     def sign_next(self): 
+
         def confirm_submit():
             try:
                 value = int(d_var.get())
@@ -278,7 +284,7 @@ class gui_pages:
 
         CTkLabel( self.sign_next_frame, text="Account created Successfully!" , font=("lucida" , 22 ), text_color= "black",bg_color="white").place( x = 250, y = 190)
 
-        CTkLabel( self.sign_next_frame, text=f"   A/c Number : {acc_num[0:2]}-{acc_num[2:]} " , font=("lucida" , 25 ), text_color= "white",bg_color="white" , fg_color="lightgreen", height= 50).place( x = 200, y = 235)
+        CTkLabel( self.sign_next_frame, text=f"  A/c Number : {acc_num[0:2]}-{acc_num[2:]} " , font=("lucida" , 25 ), text_color= "white",bg_color="white" , fg_color="lightgreen", height= 50).place( x = 200, y = 235)
 
         CTkLabel( self.sign_next_frame, text="Deposit Amount : " , font=("lucida" , 17 ), text_color= "gray",bg_color="white" , height= 50).place( x = 220, y = 295)
 
@@ -291,6 +297,7 @@ class gui_pages:
         self.sign_next_frame.pack(expand = True)
 
     def create_dashboard(self):
+
         self.dashboard = CTkFrame( root , width=800, height=534, corner_radius=5, bg_color="white" , fg_color="white" , border_width=0)
 
         self.acc_frame = CTkFrame(master= self.dashboard , width= 580 , height= 534, fg_color= "white" , border_width=0 , corner_radius= 0)
@@ -298,6 +305,8 @@ class gui_pages:
         self.service_frame = CTkFrame(master= self.dashboard , width= 580 , height= 534, fg_color= "white" , border_width=0 , corner_radius= 0)
 
         self.transfer_frame = CTkFrame(master= self.dashboard , width= 580 , height= 534, fg_color= "white" , border_width=0 , corner_radius= 0)
+
+        self.record_frame = CTkFrame(master= self.dashboard , width= 580 , height= 534, fg_color= "white" , border_width=0 , corner_radius= 0)
 
         # creating accounts frame:
         def create_account_frame():
@@ -329,11 +338,13 @@ class gui_pages:
 
             CTkLabel( self.acc_frame, text=get_logged_details(3), font=("lucida" , 21,"bold" ), text_color= "black",bg_color="white" , height= 50).place(x = 220, y = 410)
 
-            CTkLabel(self.acc_frame, text= "", bg_color="white", fg_color="#766bff" , width= 50, height= 40, corner_radius= 50).place( x = -25, y = 150)
+            CTkLabel(self.acc_frame, text= "", bg_color="white", fg_color="#766bff" , width= 50, height= 50, corner_radius= 50).place( x = -32, y = 150)
 
             self.acc_frame.place(x = 220, y= 0)
 
         #creating services frame----------------
+
+        #creating services functions-
 
         def deposit_func(deposit_ac, deposit_amt):
 
@@ -387,17 +398,34 @@ class gui_pages:
                     msg.showerror("Error" , "Invalid Amount!")
 
         def transfer_func(t_ac , t_pin, t_amt):
-            pass
-
+            if( len(t_ac) != 6):
+                msg.showerror("Error" , "Invalid Account Number!")
+            elif t_ac == get_logged_details(7777):
+                msg.showerror("Error" , "Could not transfer to same account. Enter another account number to continue!")
+            elif(len(t_pin) != 4):
+                msg.showerror("Error" , "Invalid Transaction Pin!")
+            elif( len(t_amt) < 1):
+                msg.showerror("Error", "Please enter the amount!")
+            else:
+                try:
+                    s_ac = int(t_ac)
+                    s_pin = int(t_pin)
+                    s_amt = int(t_amt)
+                    transfer_money(s_ac, s_pin, s_amt)
+                except Exception:
+                    msg.showerror("Error" , "Please Enter valid details! and Try Again")
+                
+                create_transfer_frame()
 
         def create_service_frame():
+
             self.service_frame = CTkFrame(master= self.dashboard , width= 580 , height= 534, fg_color= "white" , border_width=0 , corner_radius= 0)
 
             self.withdraw_frame = CTkFrame( self.service_frame , width=440, height=340, corner_radius=5, bg_color="white" , fg_color="white" , border_width=0)
 
             self.deposit_frame = CTkFrame( self.service_frame , width=440, height=340, corner_radius=5, bg_color="white" , fg_color="white" , border_width=0)
 
-            CTkLabel(self.service_frame, text= "", bg_color="white", fg_color="#766bff" , width= 50, height= 40, corner_radius= 50).place( x = -25, y = 220) 
+            CTkLabel(self.service_frame, text= "", bg_color="white", fg_color="#766bff" , width= 50, height= 50, corner_radius= 50).place( x = -32, y = 220) 
 
             CTkLabel( self.service_frame, text="Banking Services" , font=("lucida" , 22), text_color= "black",bg_color="white" , height= 50).place(x = 20, y = 15)
 
@@ -411,6 +439,7 @@ class gui_pages:
 
 
         def create_withdraw_frame():
+
             self.deposit_frame.destroy()
             withdraw_amt = StringVar()
             withdraw_pin = StringVar()
@@ -461,9 +490,7 @@ class gui_pages:
 
             self.deposit_frame.place(x = 70 , y = 170)
 
-
-
-            # creating fund transfer frame
+        # creating fund transfer frame
         def create_transfer_frame():
 
             transfer_ac = StringVar()
@@ -472,7 +499,7 @@ class gui_pages:
 
             self.transfer_frame = CTkFrame(master= self.dashboard , width= 580 , height= 534, fg_color= "white" , border_width=0 , corner_radius= 0)
 
-            CTkLabel(self.transfer_frame, text= "", bg_color="white", fg_color="#766bff" , width= 50, height= 40, corner_radius= 50).place( x = -25, y = 220) 
+            CTkLabel(self.transfer_frame, text= "", bg_color="white", fg_color="#766bff" , width= 50, height= 50, corner_radius= 50).place( x = -35, y = 290) 
 
             CTkLabel( self.transfer_frame, text="Online Fund Transfer" , font=("lucida" , 22, "bold"), text_color= "black",bg_color="white" ,fg_color="lightgreen", height= 50, width= 530).place(x = 20, y = 15)
 
@@ -492,7 +519,23 @@ class gui_pages:
 
             self.transfer_frame.place(x = 220, y= 0)
 
+        def create_record_frame():
 
+            records = get_logged_details(6)
+            self.record_frame = CTkFrame(master= self.dashboard , width= 580 , height= 534, fg_color= "white" , border_width=0 , corner_radius= 0)
+
+            CTkLabel(self.record_frame, text= "", bg_color="white", fg_color="#766bff" , width= 50, height= 50, corner_radius= 50).place( x = -35, y = 360) 
+
+            CTkLabel( self.record_frame, text="All Transactions" , font=("lucida" , 20, "bold"), text_color= "white",bg_color="white" ,fg_color="#817bcd", height= 50, width= 530).place(x = 20, y = 15)
+
+            rec_box = tkinter.Listbox(self.record_frame, width= 47, height= 16, font=("lucida" , 14), border= None, borderwidth= 0, selectbackground="grey" , highlightcolor="grey", highlightthickness=0, highlightbackground="grey")
+
+            for i in records:
+                rec_box.insert(END, i )
+                rec_box.insert(END, "" )
+            rec_box.place(x = 28 , y = 75)
+
+            self.record_frame.place(x = 220, y= 0)
 
         CTkFrame(master= self.dashboard , width= 220 , height= 534, fg_color= "#766bff" , border_width=0 , corner_radius= 0).place(x = 0, y = 0)
 
@@ -500,13 +543,21 @@ class gui_pages:
         mainlogo_lbl = CTkLabel(self.dashboard, image=mainlogo , text="").place(x=0,y=0)
 
         def change_dashboard_frame(frame):
-
+            if( frame == "out"):
+                if( msg.askokcancel("Quit","Do you want to logout!")):
+                    check_signup_final(get_logged_details(7777),-1)
+                    self.dashboard.destroy()
+                    self.create_loginpage()
+                return
+            
             self.acc_frame.destroy()
             self.service_frame.destroy()
             self.transfer_frame.destroy()
+            self.record_frame.destroy()
             ser_frame_btn.configure(text_color = "white" , fg_color = "#766bff")
             acc_frame_btn.configure(text_color = "white" , fg_color = "#766bff")
             trf_frame_btn.configure(text_color = "white" , fg_color = "#766bff")
+            rec_frame_btn.configure(text_color = "white" , fg_color = "#766bff")
 
             if( frame == "ser"):
                 create_service_frame()
@@ -517,7 +568,9 @@ class gui_pages:
             elif( frame == "trf"):
                 trf_frame_btn.configure(text_color = "black", fg_color = "white")
                 create_transfer_frame()
-
+            elif( frame == "rec"):
+                rec_frame_btn.configure(text_color = "black", fg_color = "white")
+                create_record_frame()
 
         # creating menu buttons
         acc_frame_btn = CTkButton(self.dashboard, cursor="hand2",width= 130 , height= 50 , fg_color="white",bg_color="#766bff",text= "👤 Accounts       " , text_color="black" , font=("lucida" , 18 , "bold"),corner_radius=25, hover_color="#554dc9", command= lambda: change_dashboard_frame("acc"))
@@ -529,11 +582,13 @@ class gui_pages:
         trf_frame_btn = CTkButton(self.dashboard, cursor="hand2",width= 130 , height= 50 , fg_color="#766bff",bg_color="#766bff",text= "💸 Fund Transfer" , text_color="white" , font=("lucida" , 18 , "bold"),corner_radius=25, hover_color="#554dc9", command= lambda: change_dashboard_frame("trf"))
         trf_frame_btn.place( x = 13, y = 290)
 
-        CTkButton(self.dashboard, cursor="hand2",width= 130 , height= 50 , fg_color="#766bff",bg_color="#766bff",text= "↗️ Transactions " , text_color="white" , font=("lucida" , 18 , "bold"),corner_radius=25, hover_color="#554dc9").place( x = 15, y = 360)
+        rec_frame_btn = CTkButton(self.dashboard, cursor="hand2",width= 130 , height= 50 , fg_color="#766bff",bg_color="#766bff",text= "↗️ Transactions" , text_color="white" , font=("lucida" , 18 , "bold"),corner_radius=25, hover_color="#554dc9", command= lambda: change_dashboard_frame("rec"))
+        rec_frame_btn.place( x = 15, y = 360)
+
+        lout_frame_btn = CTkButton(self.dashboard, cursor="hand2",width= 130 , height= 50 , fg_color="#766bff",bg_color="#766bff",text= "⛔ Log Out" , text_color="white" , font=("lucida" , 18 , "bold"),corner_radius=25, hover_color="#554dc9", command= lambda: change_dashboard_frame("out"))
+        lout_frame_btn.place( x = 20, y = 430)
 
         create_account_frame()
-        # create_transfer_frame()
-
         self.dashboard.pack(expand = True)
 
 #global functions and variables --------------------------------------------------
@@ -546,7 +601,7 @@ def check_login_details(ac, pin):
     if not os.path.exists(f"server\{ac}.txt"):
         msg.showerror("Error", "Account not found! Try again.")
     else:
-        
+        server.logged_user_details = ["","","","","","", []]
         f = open(f"server\{ac}.txt", 'r')
         for i in range(6):
             line = f.readline()
@@ -555,8 +610,6 @@ def check_login_details(ac, pin):
             line = f.readline()
             if( line == ""): break
             server.logged_user_details[6].append(line[0:-1])
-
-        print(server.logged_user_details)
         
         if not server.logged_user_details[4] == str(pin):
             msg.showerror("Error", "Wrong pin or password!")
@@ -574,19 +627,19 @@ def get_acc_num():
     return str(acc_num)
     
 def check_signup_final(acc_number , amount):
-    if( amount > 0):
+    if amount < 0:
+        server.new_user_details = server.logged_user_details.copy()
+    elif( amount > 0):
         server.new_user_details[5] = str(amount)
-        trecord = "D"+ str( dt.now()).split('.')[0] + " Depoist " + str(amount)
+        trecord = str( dt.now()).split('.')[0] + "           Depoist            +  $ " + str(amount)
         server.new_user_details[6].insert(0, trecord)
     else:
         if acc_number == 0:
-            root.destroy()
-            quit()
-            # if msg.askokcancel("Quit", "Do you want to quit?"):
-            #     root.destroy()
-            #     quit()
-            # else:
-            #     return
+            if msg.askokcancel("Quit", "Do you want to quit?"):
+                root.destroy()
+                quit()
+            else:
+                return
         else: server.new_user_details = server.logged_user_details.copy()
 
     with open(f"server\{acc_number}.txt", 'w') as f:
@@ -607,15 +660,59 @@ def check_signup_final(acc_number , amount):
 # updating logged details -----------
 def deposit_update(amount):
     server.logged_user_details[5] = str( int(server.logged_user_details[5]) + amount)
-    dep_update = "D"+ str( dt.now()).split('.')[0] + " Depoist " + str(amount)
+
+    dep_update = str( dt.now()).split('.')[0] + "           Depoist            +  $ " + str(amount)
     server.logged_user_details[6].insert(0, dep_update)
 
 def withdraw_update(amount):
     server.logged_user_details[5] = str( int(server.logged_user_details[5]) - amount)
-    wid_update = "W"+ str( dt.now()).split('.')[0] + " Withdraw " + str(amount)
-    server.logged_user_details[6].insert(0, wid_update)
-    print( server.logged_user_details[6])
 
+    wid_update = str( dt.now()).split('.')[0] + "           Withdraw          -  $ " + str(amount)
+    server.logged_user_details[6].insert(0, wid_update)
+
+def transfer_money( ac , pin , amount):
+    if not os.path.exists(f"server\{ac}.txt"):
+        msg.showerror("Failed", "Account not found! Try again.")
+
+    elif( str(pin) != server.logged_user_details[4]):
+        msg.showerror("Failed" , "Invalid Account transaction Pin! Try Again...")
+
+    elif( amount > 0):
+        if( amount > int(server.logged_user_details[5])):
+            msg.showerror("Error", "Insufficient Balance!!")
+            return
+        server.transfer_user_details = ["","","","","","",[]] 
+        f = open(f"server\{ac}.txt", 'r')
+        for i in range(6):
+            line = f.readline()
+            server.transfer_user_details[i] = line[0:-1]
+        while True:
+            line = f.readline()
+            if( line == ""): break
+            server.transfer_user_details[6].append(line[0:-1])
+
+        server.transfer_user_details[5] = str(amount + int(server.transfer_user_details[5]))
+
+        trecord = str( dt.now()).split('.')[0] + "           Received           +  $ " + str(amount)
+        srecord = str( dt.now()).split('.')[0] + "           Transfer           -  $ " + str(amount)
+        server.transfer_user_details[6].insert(0, trecord)
+
+        with open(f"server\{ac}.txt", 'w') as f:
+            f.writelines(f"{server.transfer_user_details[0]}\n")
+            f.writelines(f"{server.transfer_user_details[1]}\n")
+            f.writelines(f"{server.transfer_user_details[2]}\n")
+            f.writelines(f"{server.transfer_user_details[3]}\n")
+            f.writelines(f"{server.transfer_user_details[4]}\n")
+            f.writelines(f"{server.transfer_user_details[5]}\n")
+            for lines in server.transfer_user_details[6]:
+                f.writelines(f"{lines}\n")
+
+        server.logged_user_details[6].insert(0, srecord)
+        server.logged_user_details[5] = str(int(server.logged_user_details[5]) - amount)
+        msg.showinfo("Fund Transfer", "Money Transfer Successfully!!")
+    
+    else:
+        msg.showerror("Failed" , "Amount should be greater than 0! Try Again...")
 
 root = CTk()
 root.geometry("800x534")
@@ -627,11 +724,8 @@ root.protocol("WM_DELETE_WINDOW", lambda: check_signup_final(int(server.logged_a
 server = server()
 pages = gui_pages()
 
-# pages.create_mainpage()
-# pages.create_loginpage()
-# pages.sign_next()
-# pages.create_signinpage()
-pages.create_dashboard()
+pages.create_mainpage()
 
 root.mainloop()
 
+# <<--------------------------------------------------developer - Fendrick :)----------------------------------------------------------------------->>
