@@ -15,7 +15,7 @@ class server():
         self.main_server = {}
         self.new_user_details = ["","","","","","",[]]
         self.logged_account = "0"
-        self.logged_user_details = ["Aditya Raj","13/12/12","1","7739652381","1111","5700",[]]
+        self.logged_user_details = ["Golu kumar","13/12/12","1","7739652381","1111","5700",[]]
         self.transfer_user_details = ["","","","","","",[]] 
 
     def add_new_user(self, name , dob , gender , pnum, pin ):
